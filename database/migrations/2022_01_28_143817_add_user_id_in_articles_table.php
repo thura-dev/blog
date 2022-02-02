@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateArticlesTable extends Migration
+class AddUserIdInArticlesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,8 @@ class CreateArticlesTable extends Migration
      */
     public function up()
     {
-        Schema::create('articles', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->text('body');
-            $table->integer('category_id');
-
-            $table->timestamps();
+        Schema::table('articles', function (Blueprint $table) {
+            $table->integer('user_id')->nullable();
         });
     }
 
@@ -30,6 +25,8 @@ class CreateArticlesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('articles');
+        Schema::table('articles', function (Blueprint $table) {
+    $table->dropColumn('user_id');
+        });
     }
 }

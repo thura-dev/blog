@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ArticleFactory extends Factory
@@ -16,7 +18,8 @@ class ArticleFactory extends Factory
         return [
             'title'=>$this->faker->sentence,
             'body'=>$this->faker->paragraph,
-            'category_id'=>rand(1,5)
+            'category_id'=>Category::query()->inRandomOrder()->first()->id,
+            'user_id'=>User::query()->inRandomOrder()->first()->id,
         ];
     }
 }
